@@ -169,6 +169,11 @@ target_language = st.selectbox(
     list(languages.keys())
 )
 
+translation_engine = st.radio(
+    "Choose Translation Engine",
+    ["Google Translate", "Gemini AI"]
+)
+
 translate_btn = st.button("🚀 Translate")
 
 st.info(f"Translating to: {target_language}")
