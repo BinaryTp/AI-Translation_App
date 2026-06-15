@@ -1,0 +1,59 @@
+# 🌍 AI Language Translator
+
+An AI-powered language translation web application built using Python and Streamlit.
+
+## 🚀 Features
+
+- 🌐 Multi-language Translation
+- 🔍 Automatic Language Detection
+- 🔊 Text-to-Speech Audio Output
+- 📜 Translation History
+- 📥 Download Translation
+- 📊 Character and Word Counter
+- 🎨 Modern Dark UI
+
+## 🛠 Technologies Used
+
+- Python
+- Streamlit
+- Deep Translator
+- LangDetect
+- gTTS (Google Text-to-Speech)
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/BinaryTp/AI-Translation_App.git
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the application:
+
+```bash
+streamlit run app.py
+```
+
+## 📸 Screenshots
+
+(Add screenshots here after deployment)
+
+## 🎯 Future Enhancements
+
+- Gemini AI Integration
+- Voice Input
+- Translation Comparison
+- PDF Translation
+- OCR Image Translation
+
+## 👨‍💻 Developer
+
+Tushar Patel
+
+AI Language Translator v2.0
