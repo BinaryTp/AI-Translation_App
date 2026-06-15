@@ -1,6 +1,0 @@
-streamlit
-deep-translator
-gtts
-langdetect
-google-genai
-python-dotenv
