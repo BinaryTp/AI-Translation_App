@@ -3,6 +3,15 @@ from deep_translator import GoogleTranslator
 from gtts import gTTS
 from langdetect import detect
 from io import BytesIO
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+genai.configure(
+    api_key=os.getenv("GEMINI_API_KEY")
+)
 
 st.set_page_config(
     page_title="AI Translator",
@@ -52,6 +61,12 @@ if "translated" not in st.session_state:
 if "detected_language" not in st.session_state:
     st.session_state.detected_language = ""
 
+if "source_text" not in st.session_state:
+    st.session_state.source_text = ""
+
+if "text_area_key" not in st.session_state:
+    st.session_state.text_area_key = 0
+
 clear_btn = False
 
 languages = {
@@ -93,46 +108,57 @@ language_names = {
 with st.sidebar:
 
     st.markdown("""
-    # 🌍 Translator Dashboard
+    #  Dashboard
     """)
     st.success("System Online")
 
     st.markdown("---")
 
     st.write("### Features")
-    st.write("✅ Multi-language Support")
-    st.write("✅ Language Detection")
-    st.write("✅ AI Translation")
-    st.write("### 🌐 Languages Supported")
-    st.write(f"**{len(languages)} Languages**")
 
-    st.markdown("---")
+    with st.expander("📋 View Features"):
 
-    st.write("### Developer")
-    st.write("👨‍💻 Tushar Patel")
-    st.write("Version 2.0")
+        st.write("🌍 Multi-language Support")
+        st.write("🔍 Language Detection")
+        st.write("⚡ Google Translate Engine")
+        st.write("🤖 Gemini AI Engine")
+        st.write("🔊 Text-to-Speech")
+        st.write("📜 Translation History")
+        st.write("📥 Download Translation")
+        st.write("### 🌐 Languages Supported")
+        st.write(f"**{len(languages)} Languages**")
+
     
     st.markdown("---")
     
-    st.write("### 📜 Translation History")
+    st.write("###  Translation History")
 
-    for index, item in enumerate(
-        reversed(st.session_state.history),
-        start=1
-    ):
+    with st.expander("📜 Translation History"):
 
-        preview = item["source"][:35]
+        for index, item in enumerate(
+            reversed(st.session_state.history),
+            start=1
+        ):
 
-        st.markdown(f"### #{index}")
-        st.caption(preview + "...")
-        st.caption(f"🌍 {item['language']}")
-        st.markdown("---")
+            preview = item["source"][:35]
+
+            st.markdown(f"### #{index}")
+            st.caption(preview + "...")
+            st.caption(f"🌍 {item['language']}")
+            st.caption(f"🤖 {item['engine']}")
+            st.markdown("---")
 
 
     if  st.button("🗑 Clear History"):
         st.session_state.history = []
         st.session_state.translated = ""
         st.rerun()
+
+    st.markdown("---")
+
+    st.write("### 👨‍💻 Developer")
+    st.write(" Tushar Patel")
+    st.write("Version 2.0")
 
 st.markdown("""
 <h1 style='text-align:center;
@@ -156,7 +182,8 @@ source_col, output_col = st.columns(2)
 
 with source_col:
     text = st.text_area(
-        "📝 Source Text",
+        "📝Source Text",
+        key=f"source_text_{st.session_state.text_area_key}",
         height=180,
         placeholder="Type or paste text here..."
     )
@@ -167,6 +194,11 @@ with source_col:
 target_language = st.selectbox(
     "Select Target Language",
     list(languages.keys())
+)
+
+translation_engine = st.radio(
+    "Choose Translation Engine",
+    ["Google Translate", "Gemini AI"]
 )
 
 translate_btn = st.button("🚀 Translate")
@@ -190,10 +222,32 @@ if translate_btn:
 
         try:
 
-            translated = GoogleTranslator(
-                source="auto",
-                target=languages[target_language]
-            ).translate(text)
+            if translation_engine == "Google Translate":
+
+                translated = GoogleTranslator(
+                    source="auto",
+                    target=languages[target_language]
+                ).translate(text)
+
+            else:
+
+                model = genai.GenerativeModel(
+                    "gemini-2.5-flash"
+                )
+
+                prompt = f"""
+                Translate the following text into {target_language}.
+
+                Return ONLY the translated text.
+                Do not explain anything.
+
+                Text:
+                {text}
+                """
+
+                response = model.generate_content(prompt)
+
+                translated = response.text.strip()
 
             try:
                 detected_code = detect(text)
@@ -245,7 +299,8 @@ if translate_btn:
             entry = {
                 "source": text,
                 "translated": translated,
-                "language": target_language
+                "language": target_language,
+                "engine": translation_engine
             }
 
             if entry not in st.session_state.history:
@@ -260,14 +315,6 @@ if translate_btn:
 
     else:
         st.warning("Please enter some text.")
-
-if clear_btn:
-
-    st.session_state.translated = ""
-    st.session_state.detected_language = ""
-
-    st.rerun()
-
 
 
 
@@ -294,6 +341,12 @@ with output_col:
 
         with col_clear:
             clear_btn = st.button("🗑 Clear Text")
+        
+        if clear_btn:
+            st.session_state.translated = ""
+            st.session_state.detected_language = ""
+            st.session_state.text_area_key += 1
+            st.rerun()
 
     else:
 
