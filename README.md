@@ -11,6 +11,22 @@ An AI-powered language translation web application built using Python and Stream
 - 📥 Download Translation
 - 📊 Character and Word Counter
 - 🎨 Modern Dark UI
+-  🤖 Gemini AI Translation
+- 🔄 Multiple Translation Engines (Google Translate & Gemini AI)
+
+- 
+
+## 🤖 Translation Engines
+
+### Google Translate
+- Fast translation
+- Supports multiple languages
+- Lightweight and reliable
+
+### Gemini AI
+- Context-aware translation
+- Better sentence understanding
+- More natural translations
 
 ## 🛠 Technologies Used
 
@@ -46,7 +62,6 @@ streamlit run app.py
 
 ## 🎯 Future Enhancements
 
-- Gemini AI Integration
 - Voice Input
 - Translation Comparison
 - PDF Translation
