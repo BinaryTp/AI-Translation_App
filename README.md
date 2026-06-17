@@ -2,6 +2,10 @@
 
 An AI-powered language translation web application built using Python and Streamlit.
 
+## 🚀 Live Demo
+
+https://ai-translationapp-rdg9i9ehbtnonwp2qfk4al.streamlit.app
+
 ## 🚀 Features
 
 - 🌐 Multi-language Translation
@@ -14,7 +18,6 @@ An AI-powered language translation web application built using Python and Stream
 -  🤖 Gemini AI Translation
 - 🔄 Multiple Translation Engines (Google Translate & Gemini AI)
 
-- 
 
 ## 🤖 Translation Engines
 
