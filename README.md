@@ -59,9 +59,6 @@ Run the application:
 streamlit run app.py
 ```
 
-## 📸 Screenshots
-
-(Add screenshots here after deployment)
 
 ## 🎯 Future Enhancements
 
