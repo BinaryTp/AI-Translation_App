@@ -360,7 +360,13 @@ with output_col:
 
 st.markdown("""
 ---
-### Developed by Tushar Patel
+<div style='text-align:center; color:gray;'>
 
-AI Language Translator v2.0
-""")
+👨‍💻 <b>Developed by Tushar Patel</b><br>
+
+🌍 AI Language Translator v3.0<br><br>
+
+© 2026 Tushar Patel | MIT License
+
+</div>
+""", unsafe_allow_html=True)
