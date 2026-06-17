@@ -364,7 +364,7 @@ st.markdown("""
 
 👨‍💻 <b>Developed by Tushar Patel</b><br>
 
-🌍 AI Language Translator v3.0<br><br>
+🌍 AI Language Translator v2.0<br><br>
 
 © 2026 Tushar Patel | MIT License
 
