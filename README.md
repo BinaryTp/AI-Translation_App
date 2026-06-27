@@ -1,4 +1,4 @@
-# 🌍 AI Powered  Language Translator
+# 🌍 AI Powered Multi-Engine Language Translator
 
 An AI-powered language translation web application built using Python and Streamlit.
 
